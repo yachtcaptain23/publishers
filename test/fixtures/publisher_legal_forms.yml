@@ -1,11 +1,14 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-# one: {}
-# column: value
-#
-# two: {}
-# column: value
+# A completed legal form.
+completed:
+  publisher: verified
+  form_type: "irs_w_9"
+  docusign_envelope_id: "03f4d66e-7154-42bb-a9eb-f60a4de036e0"
+  docusign_template_id: "fae96e87-0a3a-41b8-ba3c-f51a5b68e1a3"
+  status: "completed"
+  after_sign_token: "6fb849afb6cb2ab0ce4367bcc0c89f4a1104fe239024fa8329172171ff43e2d4"
+  after_sign_token_expires_at: <%= 1.week.from_now %>
+  docusign_envelope_gotten_at: <%= Time.now %>
+  encrypted_s3_key: "eVVIJvdcMmeaj1zTVfsJZq2PFc9SFhEcXmHFA6ewOQAuctVrW8ycaPTOx5ln\neaYZiljdrIhGTa+p1PvA8i0yG5pkmdxzaCWa1OkY2HoQNwXdesLIGw==\n"
+  encrypted_s3_key_iv: "wGN0sGKqpjLjsd9Z\n"
+  encrypted_form_fields_s3_key: "6Mb3Hv8jOG2m8vbf56zvPw2Xl4Jn9Kq53GVZlLcrPiHUFNz507FGGHSfLOal\neAYRjJkIg97ZjOKl/74x1fny486mTM6XT4OegsAFZen2IjZ2y1jYlHI=\n"
+  encrypted_form_fields_s3_key_iv: "aQSs2NIwnBRfu09E\n"

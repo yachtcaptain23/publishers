@@ -10,11 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170228002057) do
+ActiveRecord::Schema.define(version: 20170322201532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "legal_form_addendums", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid     "publisher_legal_form_id", null: false
+    t.string   "encrypted_s3_key"
+    t.string   "encrypted_s3_key_iv"
+    t.integer  "addendum_number",         null: false
+    t.jsonb    "fields",                  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["publisher_legal_form_id"], name: "index_legal_form_addendums_on_publisher_legal_form_id", using: :btree
+  end
 
   create_table "publisher_legal_forms", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid     "publisher_id",                         null: false

@@ -1,8 +1,8 @@
 class Api::PublishersController < Api::BaseController
   before_action :require_verified_publisher,
-    only: %i(notify update_legal_form)
+    only: %i(notify update_legal_form create_legal_form_addendum)
   before_action :require_valid_legal_form,
-    only: %i(update_legal_form)
+    only: %i(create_legal_form_addendum update_legal_form)
 
   def notify
     PublisherNotifier.new(
@@ -30,6 +30,16 @@ class Api::PublishersController < Api::BaseController
       else
         render(json: { message: "error" }, status: 400)
       end
+    end
+  end
+
+  def create_legal_form_addendum
+    addendum_params = { fields: params[:fields] }
+    addendum = @legal_form.addendums.build(addendum_params)
+    if addendum.save
+      render(json: { message: "success" }, status: 201)
+    else
+      render(json: { message: "error", errors: addendum.errors.as_json }, status: 400)
     end
   end
 

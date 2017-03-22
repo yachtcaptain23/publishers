@@ -2,6 +2,7 @@ class Publisher < ApplicationRecord
   has_paper_trail
 
   has_many :legal_forms, class_name: "PublisherLegalForm"
+  has_many :legal_form_addendums, through: :legal_forms
 
   attr_encrypted :bitcoin_address, key: :encryption_key
   attr_encrypted :authentication_token, key: :encryption_key

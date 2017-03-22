@@ -7,6 +7,7 @@ class PublisherLegalForm < ApplicationRecord
   attr_encrypted :form_fields_s3_key, key: :encryption_key
 
   belongs_to :publisher
+  has_many :addendums, class_name: "LegalFormAddendum"
 
   delegate :brave_publisher_id, :email, :name, to: :publisher
 
