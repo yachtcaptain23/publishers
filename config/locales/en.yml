@@ -38,8 +38,15 @@ en:
     models:
       publisher: "Publisher"
       publisher_legal_form: "Tax form"
+      legal_form_addendum: "Tax form addendum"
     shared:
       errors: "There were errors saving your request:"
+  legal_form_addendums:
+    edit: "Provide supplementary tax information"
+    edit_header: "Supplementary tax information"
+    field_data_invalid: "Please provide all fields."
+    incomplete_required: "This form addendum has already been completed."
+    saved: "Thanks! We will notify you when you're ready to receive payments."
   publishers:
     add_bitcoin_address: "Add bitcoin address"
     already_logged_in: "You can't do that because you have an active session. Please exit or clear your cookies."
@@ -96,6 +103,7 @@ en:
     status_can_receive_funds: "You are fully setup to receive Brave Payments."
     status_bitcoin_address_required: "Add a bitcoin address."
     status_legal_form_required: "Submit a tax form."
+    status_legal_form_addendum_required: "Provide supplementary tax information."
     tax_form: "Tax form"
     verified: "Verified publisher"
     verification_dns_record_help: "To verify ownership of your site, you'll need to add a new DNS record for "
@@ -249,6 +257,7 @@ en:
     error_body: "Oops, sorry about that. You can try to refresh the page or return to"
     error_contact: "For assistance please contact us at: %{support_email}"
     save_and_continue: "Save and continue"
+    submit: "Submit"
   static:
     landing_header: "Welcome to Brave Payments"
     landing_body: "Brave users are already making contributions to thank you for your efforts. The first step toward collecting those contributions is to verify ownership of your web address so Brave users can see that your site is verified. Once fully verified, you will begin to receive daily micropayments in your Bitcoin wallet."

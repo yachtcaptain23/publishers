@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     collection do
       get :after_sign
     end
+    resources :legal_form_addendums, as: "addendums", path: "addendums", only: %i(edit update)
   end
 
   resources :static, only: [] do

@@ -9,8 +9,16 @@ class LegalFormAddendum < ApplicationRecord
   validates :fields, array: true, presence: true
   before_create :generate_addendum_number
 
+  def completed?
+    s3_key.present?
+  end
+
   def encryption_key
     Rails.application.secrets[:attr_encrypted_key]
+  end
+
+  def normalized_fields
+    fields.map(&:to_s)
   end
 
   private

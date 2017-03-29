@@ -22,6 +22,9 @@
               li= I18n.t("publishers.status_bitcoin_address_required")
             - if !current_publisher.legal_form_completed?
               li= I18n.t("publishers.status_legal_form_required")
+            - if !current_publisher.legal_form_addendums_completed?
+              - legal_form = current_publisher.legal_form
+              li= link_to( I18n.t("publishers.status_legal_form_addendum_required"), edit_publisher_legal_form_addendum_path(legal_form, legal_form.addendums.first))
 
       h4= I18n.t("publishers.balance_pending")
       .attribute-value.balance

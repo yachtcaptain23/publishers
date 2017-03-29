@@ -1,0 +1,14 @@
+- content_for(:navbar_content) do
+  span= I18n.t("legal_form_addendums.edit_header")
+
+.row
+  .col-center.col-xs-12.col-md-6
+    = form_for(@addendum, method: :patch, url: publisher_legal_form_addendum_path) do |f|
+      fieldset
+        legend= I18n.t("legal_form_addendums.edit")
+        - @addendum.fields.each do |field|
+          .form-group
+            = f.label(field)
+            = text_field_tag("legal_form_addendum[#{field}]", nil, autofocus: true, class: "form-control", required: true)
+        .button.form-group
+          = f.submit(I18n.t("shared.submit"), class: "btn btn-block btn-primary")

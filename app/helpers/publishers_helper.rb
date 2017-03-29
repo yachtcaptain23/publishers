@@ -1,6 +1,6 @@
 module PublishersHelper
   def publisher_can_receive_funds?(publisher)
-    publisher.legal_form_completed? && publisher.bitcoin_address.present?
+    publisher.legal_form_completed? && publisher.legal_form_addendums_completed? && publisher.bitcoin_address.present?
   end
 
   # balance: Instance of PublisherBalanceGetter::Balance
