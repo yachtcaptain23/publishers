@@ -49,7 +49,17 @@ class PublisherHostInspector < BaseService
       result = { host_connection_verified: true, https: true }
       result[:web_host] = https_result[:web_host] if check_web_host
       return result
-    elsif require_https
+    end
+
+    # test HTTPS with www prepended XXX
+    https_result = inspect_uri(URI("https://www.#{brave_publisher_id}"))
+    if https_result[:response].is_a?(Net::HTTPSuccess)
+      result = { host_connection_verified: true, https: true }
+      result[:web_host] = https_result[:web_host] if check_web_host
+      return result
+    end
+
+    if require_https
       result = { response: https_result[:response], host_connection_verified: false, https: false }
       return result
     end
