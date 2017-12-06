@@ -45,4 +45,7 @@ class PublisherDomainNormalizer < BaseApiClient
 
   class DomainExclusionError < RuntimeError
   end
+
+  class OfflineNormalizationError < RuntimeError
+  end
 end

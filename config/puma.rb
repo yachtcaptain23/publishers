@@ -13,18 +13,14 @@ rails_env = ENV.fetch("RAILS_ENV") { "development" }
 environment rails_env
 
 # `bind` server to 'url' on which to listen for requests.
-#
-if rails_env == "development"
-  ssl_bind '127.0.0.1', '3000', {
-    key: ENV.fetch("SSL_KEY_PATH") { 'ssl/server.key' },
-    cert: ENV.fetch("SSL_CERT_PATH") { 'ssl/server.crt' },
-    verify_mode: 'none'
-  }
-else
-  bind ENV.fetch("BIND") {
+
+bind ENV.fetch("BIND") {
+  if rails_env == "development"
+    "tcp://localhost:3000"
+  else
     "tcp://0.0.0.0:#{ENV.fetch('PORT') { 5000 }}"
-  }
-end
+  end
+}
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together

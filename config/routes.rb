@@ -21,7 +21,6 @@ Rails.application.routes.draw do
       get :statement
       get :statement_ready
       get :contact_info
-      get :domain_status
       patch :verify
       patch :check_for_https
       patch :update
