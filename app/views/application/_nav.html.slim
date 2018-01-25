@@ -1,8 +1,7 @@
 nav.navbar.navbar-default.navbar-static-top.top-nav-collapse
   .container-fluid
     .menu-container
-      .nav.pull-right.float-right
-        = yield(:navbar_content_right)
+      .nav.pull-right
         - if current_publisher
           - if show_nav_menu?(current_publisher)
             .user-menu
@@ -23,11 +22,13 @@ nav.navbar.navbar-default.navbar-static-top.top-nav-collapse
                       = t ".security"
                   li= link_to t(".log_out"), log_out_publishers_path
           - else
-            .btn.btn-secondary.btn-logout.pull-right.float-right
+            .btn.btn-secondary.btn-logout.pull-right
               = link_to t("log_out"), log_out_publishers_path
-      .nav.pull-left.float-left
+      .nav.pull-left
         = link_to(root_path) do
-          .brave-logo
-            = render "logo_wordmark_svg"
+          .brave-logo.pull-left
+            = render "logo_svg"
+
+          .navbar-brand= t "shared.app_title"
       .text-center
         = yield(:navbar_content)

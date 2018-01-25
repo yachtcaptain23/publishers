@@ -1,7 +1,8 @@
 class YoutubeChannelGetter < BaseApiClient
-  attr_reader :token, :channel_id
+  attr_reader :publisher
 
-  def initialize(token:, channel_id: nil)
+  def initialize(publisher:, token:, channel_id: nil)
+    @publisher = publisher
     @token = token
     @channel_id = channel_id
   end
@@ -9,8 +10,8 @@ class YoutubeChannelGetter < BaseApiClient
   def perform
     response = connection.get do |request|
       request.headers["Authorization"] = api_authorization_header
-      if channel_id
-        request.url("/youtube/v3/channels?id=#{channel_id}&part=statistics,snippet")
+      if @channel_id
+        request.url("/youtube/v3/channels?id=#{@channel_id}&part=statistics,snippet")
       else
         request.url("/youtube/v3/channels?mine=true&part=statistics,snippet")
       end
@@ -40,7 +41,7 @@ class YoutubeChannelGetter < BaseApiClient
   end
 
   def api_authorization_header
-    "Bearer #{token}"
+    "Bearer #{@token}"
   end
 
   class ChannelNotFoundError < RuntimeError

@@ -11,11 +11,11 @@ class PublisherMailerPreview < ActionMailer::Preview
   end
 
   def verification_done
-    PublisherMailer.verification_done(Channel.first)
+    PublisherMailer.verification_done(Publisher.first)
   end
 
   def verification_done_internal
-    PublisherMailer.verification_done_internal(Channel.first)
+    PublisherMailer.verification_done_internal(Publisher.first)
   end
 
   def welcome

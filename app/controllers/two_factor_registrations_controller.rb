@@ -6,7 +6,4 @@ class TwoFactorRegistrationsController < ApplicationController
   def index
     @u2f_registrations = current_publisher.u2f_registrations
   end
-
-  def prompt
-  end
 end

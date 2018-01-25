@@ -1,4 +1,4 @@
-# Send publisher and channel info to Eyeshade
+# Ask Eyeshade to assign youtube channels to a Publisher.
 class PublisherChannelSetter < BaseApiClient
   attr_reader :publisher
 
@@ -8,32 +8,31 @@ class PublisherChannelSetter < BaseApiClient
 
   def perform
     return perform_offline if Rails.application.secrets[:api_eyeshade_offline]
-
-    verified_channels = publisher.channels.verified.collect do |channel|
-      {
-          "channelId" => channel.details.channel_identifier,
-          "authorizerEmail" => channel.details.try(:auth_email),
-          "authorizerName" => channel.details.try(:auth_name)
-      }.compact
-    end
-
     payload = {
-        "ownerId" => publisher.owner_identifier,
-        "contactInfo" => {
-            "name" => publisher.name,
-            "phone" => publisher.phone_normalized,
-            "email" => publisher.email
-        }.compact
+      "authorizer" => {
+        "owner" => publisher.owner_identifier,
+        "ownerEmail" => publisher.auth_email,
+        "ownerName" => publisher.auth_name
+      }.compact,
+      "contactInfo" => {
+        "name" => publisher.name,
+        "phone" => publisher.phone_normalized,
+        "email" => publisher.email
+      }.compact,
+      "providers" => [
+        {
+          "publisher" => publisher.youtube_channel.channel_identifier,
+          "show_verification_status" => publisher.show_verification_status?
+        }
+      ]
     }
-
-    payload["channels"] = verified_channels if verified_channels.count > 0
 
     # This raises when response is not 2xx.
     response = connection.post do |request|
       request.body = payload.to_json
       request.headers["Authorization"] = api_authorization_header
       request.headers["Content-Type"] = "application/json"
-      request.url("/v2/owners")
+      request.url("/v1/owners")
     end
 
     response
