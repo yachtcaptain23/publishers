@@ -5,7 +5,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
-import ButtonPrimary from 'brave-ui/rewards/buttonPrimary'
+import ButtonPrimary from 'brave-ui/components/buttonIndicators/buttonPrimary'
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
