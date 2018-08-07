@@ -30,13 +30,17 @@ class BraveRewardsPageForm extends React.Component {
   }
 
   render() {
+    const shrunkHeight = {
+      height: '567px'
+    };
+
     return (
       <div>
-        <div id="site_banner">
+        <div id="site_banner" style={shrunkHeight}>
           <SiteBanner
             bgImage={"https://www.popsci.com/sites/popsci.com/files/styles/655_1x_/public/images/2017/07/mars-surface.jpg?itok=wZc9vU-e&fc=50,50"}
             logo={"https://pbs.twimg.com/profile_images/920841899992236032/mSDhBoC9_400x400.jpg"}
-            title={"Alexis Ren"}
+            title={this.state.title}
             currentDonation={"5"}
             donationAmounts={[
               {
