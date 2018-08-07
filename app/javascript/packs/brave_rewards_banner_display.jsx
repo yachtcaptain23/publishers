@@ -31,13 +31,43 @@ class BraveRewardsPageForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Title:
-          <input type="title" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit"/>
-      </form>
+      <div>
+        <div id="site_banner">
+          <SiteBanner
+            bgImage={"https://www.popsci.com/sites/popsci.com/files/styles/655_1x_/public/images/2017/07/mars-surface.jpg?itok=wZc9vU-e&fc=50,50"}
+            logo={"https://pbs.twimg.com/profile_images/920841899992236032/mSDhBoC9_400x400.jpg"}
+            title={"Alexis Ren"}
+            currentDonation={"5"}
+            donationAmounts={[
+              {
+                "tokens": 1,
+                "converted": 0.3,
+                "selected": false
+              },
+              {
+                "tokens": 5,
+                "converted": 1.5,
+                "selected": false
+              },
+              {
+                "tokens": 10,
+                "converted": 3,
+                "selected": false
+              }
+            ]}
+          >Hello World<br/>I wonder if this works</SiteBanner>
+        </div>
+        <div id="controller_form">
+          <h4>PREVIEW</h4>
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              Title:
+              <input type="title" value={this.state.value} onChange={this.handleChange} />
+            </label>
+            <input type="submit" value="Submit"/>
+          </form>
+        </div>
+      </div>
     );
   }
 }
@@ -46,6 +76,7 @@ const braveRewardsPageForm = <BraveRewardsPageForm />;
 
 var newDiv = document.createElement('div');
 
+/*
 ReactDOM.render(
   <SiteBanner 
     bgImage={"https://www.popsci.com/sites/popsci.com/files/styles/655_1x_/public/images/2017/07/mars-surface.jpg?itok=wZc9vU-e&fc=50,50"}
@@ -72,18 +103,13 @@ ReactDOM.render(
   >Hello World<br/>I wonder if this works</SiteBanner>,
   document.body.appendChild(newDiv),
 )
+*/
 
 var newContent = document.createElement("div")
-
 newDiv.appendChild(document.createElement("div"));
 
 ReactDOM.render(
-  <p>PREVIEW</p>,
-  newDiv.children[0].appendChild(document.createElement("div")),
-)
-
-newContent = document.createElement("div")
-ReactDOM.render(
   braveRewardsPageForm,
-  newDiv.children[0].appendChild(document.createElement("div"))
+  document.body.appendChild(newDiv)
+//  newDiv.children[0].appendChild(document.createElement("div"))
 )
