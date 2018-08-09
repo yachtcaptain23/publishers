@@ -15,6 +15,8 @@ class BraveRewardsPageForm extends React.Component {
     this.state = {title: 'YOUR TITLE', description: 'A brief description'};
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+    this.handleLogoChange = this.handleLogoChange.bind(this);
+    this.handleBackgroundImageChange = this.handleBackgroundImageChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -26,24 +28,28 @@ class BraveRewardsPageForm extends React.Component {
     this.setState({description: event.target.value});
   }
 
+  handleLogoChange(event) {
+    this.setState({logo: URL.createObjectURL(event.target.files[0])});
+  }
+
+  handleBackgroundImageChange(event) {
+    this.setState({backgroundImage: URL.createObjectURL(event.target.files[0])});
+  }
+
   handleSubmit(event) {
     alert('A name was submitted: ' + this.state.title);
     event.preventDefault();
   }
 
   render() {
-    const shrunkHeight = {
-      height: '50vh'
-    };
-
     initLocale(locale);
 
     return (
       <div>
-        <div id="site_banner" style={shrunkHeight}>
+        <div id="site_banner" style={{height: '50vh'}}>
           <SiteBanner
-            bgImage={"https://www.popsci.com/sites/popsci.com/files/styles/655_1x_/public/images/2017/07/mars-surface.jpg?itok=wZc9vU-e&fc=50,50"}
-            logo={"https://pbs.twimg.com/profile_images/920841899992236032/mSDhBoC9_400x400.jpg"}
+            bgImage={this.state.backgroundImage}
+            logo={this.state.logo}
             title={this.state.title}
             currentDonation={"5"}
             donationAmounts={[
@@ -63,7 +69,7 @@ class BraveRewardsPageForm extends React.Component {
                 "selected": false
               }
             ]}
-          >{this.state.description}</SiteBanner>
+          >{this.state.description.replace("\\n", "\n")}</SiteBanner>
         </div>
         <div id="controller_form">
           <hr/>
@@ -78,6 +84,14 @@ class BraveRewardsPageForm extends React.Component {
               <label>
                 <textarea type="description" value={this.state.description} onChange={this.handleDescriptionChange} />
               </label>
+            </div>
+            <div>
+              <input type="file" id="backgroundImageSelect" style={{display:"none"}} onChange={this.handleBackgroundImageChange}/>
+              <label htmlFor="backgroundImageSelect">Select a background image</label>
+            </div>
+            <div>
+              <input type="file" id="logoSelect" style={{display:"none"}} onChange={this.handleLogoChange}/>
+              <label htmlFor="logoSelect">Select a logo</label>
             </div>
             <input type="submit" value="Submit"/>
           </form>
