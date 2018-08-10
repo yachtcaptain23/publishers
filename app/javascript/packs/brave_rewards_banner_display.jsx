@@ -69,7 +69,7 @@ class BraveRewardsPageForm extends React.Component {
                 "selected": false
               }
             ]}
-          >{this.state.description.replace("\\n", "\n")}</SiteBanner>
+          ><p style={{'white-space': "pre-line"}}>{this.state.description}</p></SiteBanner>
         </div>
         <div id="controller_form">
           <hr/>
