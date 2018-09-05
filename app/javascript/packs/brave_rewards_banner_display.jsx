@@ -13,11 +13,14 @@ class BraveRewardsPageForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: props.details.title || 'YOUR TITLE', 
-      description: props.details.description || 'A brief description',
-      backgroundImage: props.details.backgroundUrl,
-      logo: props.details.logoUrl,
-      donationAmounts: props.details.donationAmounts || [1, 5, 10],
+      title: 'YOUR TITLE',
+      description: 'A brief description',
+      backgroundImage: 'backgroundUrl',
+      logo: 'logoUrl',
+      donationAmounts: [1, 5, 10],
+      twitter: 'Twitter',
+      youtube: 'Youtube',
+      twitch: 'Twitch',
       appliedFade: false
     };
     this.handleLogoImageChange = this.handleLogoImageChange.bind(this);
@@ -25,7 +28,7 @@ class BraveRewardsPageForm extends React.Component {
     this.handleDonationAmountsChange = this.handleDonationAmountsChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
+
   isNormalInteger(str) {
     return /^\+?(0|[1-9]\d*)$/.test(str);
   }
@@ -159,7 +162,7 @@ class BraveRewardsPageForm extends React.Component {
       document.getElementsByClassName("sc-gZMcBi")[0].setAttribute("contenteditable", true)
 
       // Set p editable
-      document.getElementsByClassName("sc-gqjmRU")[0].setAttribute("contenteditable", true)
+      // document.getElementsByClassName("sc-gqjmRU")[0].setAttribute("contenteditable", true)
 
       var hiddenDonationAmounts = document.createElement('input');
       hiddenDonationAmounts.id = 'donation-amounts-input';
@@ -220,6 +223,23 @@ class BraveRewardsPageForm extends React.Component {
         body: body
       });
     };
+  }
+
+  handleEdit(attribute) {
+    if(this.props.editMode){
+      if(attribute === 'description'){
+        document.getElementById('site-banner-description').setAttribute('contenteditable','true');
+      }
+      if(attribute === 'twitter'){
+        document.getElementById('twitter-lead').setAttribute('contenteditable','true');
+      }
+      if(attribute === 'youtube'){
+        document.getElementById('youtube-lead').setAttribute('contenteditable','true');
+      }
+      if(attribute === 'twitch'){
+        document.getElementById('twitch-lead').setAttribute('contenteditable','true');
+      }
+  }
   }
 
   /*
@@ -294,7 +314,7 @@ class BraveRewardsPageForm extends React.Component {
     let topController;
 
     if (this.props.editMode) {
-      topController = 
+      topController =
                     <React.Fragment>
                       <a data-js-confirm-with-modal="instant-donation-selection" className="btn btn-link-primary" id="instant-donation-dont-save-changes" href="#" style={{'color': '#808080'}}>Don't Change</a>
                       <a data-js-confirm-with-modal="instant-donation-selection" className="btn btn-link-primary" id="instant-donation-save-changes" href="#">Preview Banner</a>
@@ -324,10 +344,27 @@ class BraveRewardsPageForm extends React.Component {
           title={this.state.title}
           currentAmount={5}
           donationAmounts={this.convertDonationAmounts(this.state.donationAmounts)}
-        ><p style={{'whiteSpace': "pre-line"}}>{this.state.description}</p></SiteBanner>
+        >
+        <p id='site-banner-description' onClick={ () => this.handleEdit('description') } style={{'whiteSpace': "pre-line"}}>{this.state.description}</p>
+
+        <svg style={{display:'inline-block', marginBottom:'2px'}} width="16" height="13" xmlns="http://www.w3.org/2000/svg"><path d="M16 1.538c-.586.26-1.221.44-1.885.519A3.307 3.307 0 0 0 15.56.239a6.54 6.54 0 0 1-2.09.796A3.283 3.283 0 0 0 7.88 4.03 9.318 9.318 0 0 1 1.115.6a3.259 3.259 0 0 0-.445 1.652c0 1.137.58 2.144 1.46 2.729a3.232 3.232 0 0 1-1.484-.41v.04a3.291 3.291 0 0 0 2.631 3.223 3.386 3.386 0 0 1-1.484.054 3.293 3.293 0 0 0 3.066 2.28A6.595 6.595 0 0 1 .781 11.57c-.264 0-.522-.015-.781-.044A9.287 9.287 0 0 0 5.033 13c6.035 0 9.336-5.001 9.336-9.337l-.01-.425A6.612 6.612 0 0 0 16 1.538z" fill="#1DA1F2" fill-rule="evenodd"></path></svg>
+        <p id='twitter-lead' onClick={ () => this.handleEdit('twitter') } style={{display:'inline-block', paddingLeft:'4px'}}>{this.state.twitter}</p>
+        <br></br>
+
+        <svg style={{display:'inline-block', marginBottom:'2px'}} width="16" height="12" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path fill="#FFF" d="M5 2l8 3-8 5z"></path><path d="M10.43 5.889L6.055 7.975a.176.176 0 0 1-.252-.158V3.513c0-.131.138-.216.255-.157l4.375 2.217a.176.176 0 0 1-.003.316zM12.677 0H3.323A3.323 3.323 0 0 0 0 3.323v4.676a3.323 3.323 0 0 0 3.323 3.323h9.354A3.323 3.323 0 0 0 16 7.999V3.323A3.323 3.323 0 0 0 12.677 0z" fill="#D9292A"></path></g></svg>
+        <p id='youtube-lead' onClick={ () => this.handleEdit('youtube') } style={{display:'inline-block', paddingLeft:'4px'}}>{this.state.youtube}</p>
+        <br></br>
+
+        <svg style={{display:'inline-block', marginBottom:'2px'}} width="13" height="14" xmlns="http://www.w3.org/2000/svg"><path d="M5.281 7.31H6.5V3.657H5.281V7.31zm3.25 0H9.75V3.657H8.531V7.31zm3.25.63L9.75 10.03H6.5l-1.727 1.776V10.03H2.031V1.254h9.75V7.94zM.914 0L0 2.403v9.82h3.25V14h1.828l1.727-1.776h2.64L13 8.567V0H.914z" fill="#5A3D84" fill-rule="evenodd"></path></svg>
+        <p id='twitch-lead' onClick={ () => this.handleEdit('twitch') } style={{display:'inline-block', paddingLeft:'4px'}}>{this.state.twitch}</p>
+        <br></br>
+
+        </SiteBanner>
+
         <div>
           <input type="file" id="background-image-select-input" style={{display:"none"}} onChange={this.handleBackgroundImageChange}/>
           <label htmlFor="background-image-select-input">Select a background image</label>
+
         </div>
       </div>
     );
@@ -379,6 +416,7 @@ export function renderBraveRewardsBannerDisplay(editMode) {
   // Resize modal container
   document.getElementsByClassName("modal-container")[0].style.height = document.getElementById('site_banner').children[1].children[0].offsetHeight + "px";
   document.getElementsByClassName("modal-container")[0].style.width = document.getElementById('site_banner').children[1].children[0].offsetWidth + "px";
+
 
   // Reset margins
   document.getElementsByClassName("modal-panel")[0].style.marginLeft = "0px";
