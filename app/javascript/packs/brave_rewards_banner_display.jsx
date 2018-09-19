@@ -50,10 +50,15 @@ class BraveRewardsPageForm extends React.Component {
   }
 
   handleDonationAmountsChange(event) {
-    this.setState({
-      donationAmounts:
-        document.getElementById("donation-amounts-input").value.split(',').map(Number)
-    });
+     let donationAmounts = document.getElementById("donation-amounts-input").value.split(',').map(Number)
+
+     donationAmounts.forEach(function(amount){
+       if(isNaN(amount)){
+         donationAmounts = [1, 5, 10]
+       }
+     })
+
+    this.setState({donationAmounts: donationAmounts});
   }
 
   handleLogoImageChange(event) {
