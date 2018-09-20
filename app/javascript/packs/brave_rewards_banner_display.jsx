@@ -13,18 +13,15 @@ class BraveRewardsPageForm extends React.Component {
   constructor(props) {
     super(props);
 
+    let convertedAmounts = this.constructConvertedAmounts(props);
+
     this.state = {
       title: props.details.title || 'Your Title',
       description: props.details.description || 'A brief description',
       backgroundImage: props.details.backgroundUrl,
       logo: props.details.logoUrl,
       donationAmounts: props.details.donationAmounts || [1, 5, 10],
-      convertedAmounts:
-      [
-        {tokens: props.details.donationAmounts[0], converted: props.details.donationAmounts[0] * this.props.conversionRate, selected: false},
-        {tokens: props.details.donationAmounts[1], converted: props.details.donationAmounts[1] * this.props.conversionRate, selected: true},
-        {tokens: props.details.donationAmounts[2], converted: props.details.donationAmounts[2] * this.props.conversionRate, selected: false},
-      ],
+      convertedAmounts: convertedAmounts,
       socialLinks: props.details.socialLinks || {'twitter': '@', 'youtube': '@', 'twitch': '@'},
     };
 
@@ -35,8 +32,28 @@ class BraveRewardsPageForm extends React.Component {
     this.updateTwitter = this.updateTwitter.bind(this);
     this.handleLogoImageChange = this.handleLogoImageChange.bind(this);
     this.handleBackgroundImageChange = this.handleBackgroundImageChange.bind(this);
-    // this.handleDonationAmountsChange = this.handleDonationAmountsChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  constructConvertedAmounts(props){
+    let convertedAmounts
+    if(props.details.donationAmounts === undefined){
+      convertedAmounts =
+      [
+          {tokens: 1, converted: 1 * this.props.conversionRate, selected: false},
+          {tokens: 5, converted: 5 * this.props.conversionRate, selected: true},
+          {tokens: 10, converted: 10 * this.props.conversionRate, selected: false}
+      ]
+    }
+    else{
+      convertedAmounts =
+      [
+        {tokens: props.details.donationAmounts[0] || 1, converted: props.details.donationAmounts[0] || 1 * this.props.conversionRate, selected: false},
+        {tokens: props.details.donationAmounts[1] || 5, converted: props.details.donationAmounts[1] || 5 * this.props.conversionRate, selected: true},
+        {tokens: props.details.donationAmounts[2] || 10, converted: props.details.donationAmounts[2] || 10 * this.props.conversionRate, selected: false}
+      ]
+    }
+    return convertedAmounts
   }
 
   isNormalInteger(str) {
@@ -223,7 +240,7 @@ class BraveRewardsPageForm extends React.Component {
     let tokens = document.getElementsByClassName("sc-jKJlTe jOKQyC")[0].childNodes[1].childNodes[0].childNodes[0].childNodes[1].className;
 
     for(let i = 0; i < 3; i++){
-      document.getElementsByClassName(tokens)[i].addEventListener("keypress", function(e) {
+      document.getElementsByClassName(tokens)[i].addEventListener("keypress", function keyPress(e) {
         if (isNaN(String.fromCharCode(e.which)) || document.getElementsByClassName(tokens)[i].innerHTML.length > 2 || e.which === 13){
           e.preventDefault();
         }
@@ -231,10 +248,18 @@ class BraveRewardsPageForm extends React.Component {
     }
 
     for(let i = 0; i < 3; i++){
-      document.getElementsByClassName(tokens)[i].addEventListener("focusout", function(event) {
+      document.getElementsByClassName(tokens)[i].addEventListener("focusout", function focusOut(e) {
         if(document.getElementsByClassName(tokens)[i].innerHTML === ''){
           document.getElementsByClassName(tokens)[i].innerHTML = defaultValues[i];
         }
+
+        if(document.getElementsByClassName(tokens)[i].innerHTML === document.getElementsByClassName(tokens)[(i+1)%3].innerHTML || document.getElementsByClassName(tokens)[i].innerHTML === document.getElementsByClassName(tokens)[(i+2)%3].innerHTML){
+          document.getElementsByClassName(tokens)[i].innerHTML = parseInt(document.getElementsByClassName(tokens)[i].innerHTML) + 1
+          if(document.getElementsByClassName(tokens)[i].innerHTML === document.getElementsByClassName(tokens)[(i+1)%3].innerHTML || document.getElementsByClassName(tokens)[i].innerHTML === document.getElementsByClassName(tokens)[(i+2)%3].innerHTML){
+            document.getElementsByClassName(tokens)[i].innerHTML = parseInt(document.getElementsByClassName(tokens)[i].innerHTML) + 1
+          }
+        }
+
         that.setState({
           donationAmounts:
         [
@@ -250,8 +275,8 @@ class BraveRewardsPageForm extends React.Component {
         ]
       });
 
+      e.currentTarget.removeEventListener(e.type, focusOut);
       that.handleDonationEdit();
-
       }, false);
     }
 
