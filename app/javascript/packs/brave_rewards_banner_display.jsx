@@ -252,7 +252,6 @@ class BraveRewardsPageForm extends React.Component {
 
       that.handleDonationEdit();
 
-      console.log(that.state.convertedAmounts);
       }, false);
     }
 
