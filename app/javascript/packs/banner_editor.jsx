@@ -103,18 +103,21 @@ export default class BannerEditor extends React.Component {
           return response.json();
         })
         .then(function(banner) {
-
-          that.setState({
-            title: banner.title,
-            description: banner.description,
-            youtube: banner.socialLinks.youtube,
-            twitter: banner.socialLinks.twitter,
-            twitch: banner.socialLinks.twitch,
-            donationAmounts: banner.donationAmounts,
-          })
-
-          that.cropFetchedLogo(banner.logoImage, that);
-          that.cropFetchedBackgroundImage(banner.backgroundImage, that)
+          if(Object.keys(banner).length === 0 && banner.constructor === Object){
+            return;
+          }
+          else{
+            that.setState({
+              title: banner.title,
+              description: banner.description,
+              youtube: banner.socialLinks.youtube,
+              twitter: banner.socialLinks.twitter,
+              twitch: banner.socialLinks.twitch,
+              donationAmounts: banner.donationAmounts,
+            })
+            that.cropFetchedLogo(banner.logoImage, that);
+            that.cropFetchedBackgroundImage(banner.backgroundImage, that)
+          }
         });
   }
 
@@ -219,13 +222,14 @@ export default class BannerEditor extends React.Component {
   cropFetchedBackgroundImage(backgroundImage, that){
     let img = new Image();
     img.src = backgroundImage;
+    img.crossOrigin = "Anonymous";
     img.onload = function() {
       var canvas = document.createElement('canvas');
       var ctx = canvas.getContext('2d');
       canvas.width = 1200;
       canvas.height = 176;
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      let url = canvas.toDataURL('image/jpeg', 1);
+      let url = canvas.toDataURL('image/jpg', 1);
       that.setState({backgroundImage: url});
     }
   }
@@ -257,7 +261,7 @@ export default class BannerEditor extends React.Component {
         canvas.width = 1200;
         canvas.height = 176;
         ctx.drawImage(img1200, 0, 0, canvas.width, canvas.height);
-        let url = canvas.toDataURL('image/jpeg', 1);
+        let url = canvas.toDataURL('image/jpg', 1);
         that.setState({backgroundImage: url});
       }
 
@@ -271,6 +275,7 @@ export default class BannerEditor extends React.Component {
   cropFetchedLogo(logo, that){
     let img = new Image();
     img.src = logo;
+    img.crossOrigin = "Anonymous";
     img.onload = function() {
       var canvas = document.createElement('canvas');
       var ctx = canvas.getContext('2d');
