@@ -82,7 +82,7 @@ gem "premailer-rails", "~> 1.9.4", require: false
 gem 'public_suffix', '~> 3.0.2'
 
 # Puma as app server
-gem "puma", "3.10"
+gem 'puma', git: 'https://github.com/eric-norcross/puma.git', branch: 'chrome_70_ssl_curve_compatiblity'
 
 # Make cracking a little bit harder
 gem "rack-attack", "~> 5.0"
@@ -185,10 +185,10 @@ group :development, :test do
   gem "byebug"
   gem "pry-byebug", require: false
   gem "mocha"
-  gem 'minitest-rails-capybara', '~> 3.0.1'
   gem 'rubyzip'
-  gem "capybara-selenium"
+  gem 'capybara'
   gem "chromedriver-helper"
+  gem 'selenium-webdriver'
   gem 'simplecov', require: false, group: :test
 end
 

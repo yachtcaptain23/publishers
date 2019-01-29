@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/eric-norcross/puma.git
+  revision: fc97fdaab2290f93e348a23b5bec9b01e1f195bc
+  branch: chrome_70_ssl_curve_compatiblity
+  specs:
+    puma (3.12.0)
+
+GIT
   remote: https://github.com/matomo-org/piwik-ruby-api.git
   revision: ad7ed94c15cb201fe6297e33a199eb4471aa292a
   branch: master
@@ -67,7 +74,7 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.5.2)
+    addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
     api-pagination (4.8.1)
     archive-zip (0.11.0)
@@ -113,16 +120,14 @@ GEM
       thor (~> 0.18)
     byebug (10.0.2)
     cancancan (2.2.0)
-    capybara (2.18.0)
+    capybara (3.13.2)
       addressable
       mini_mime (>= 0.1.3)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (>= 2.0, < 4.0)
-    capybara-selenium (0.0.6)
-      capybara
-      selenium-webdriver
+      nokogiri (~> 1.8)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      regexp_parser (~> 1.2)
+      xpath (~> 3.2)
     case_transform (0.2)
       activesupport
     childprocess (0.9.0)
@@ -226,20 +231,6 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
-    minitest-capybara (0.8.2)
-      capybara (~> 2.2)
-      minitest (~> 5.0)
-      rake
-    minitest-metadata (0.6.0)
-      minitest (>= 4.7, < 6.0)
-    minitest-rails (3.0.0)
-      minitest (~> 5.8)
-      railties (~> 5.0)
-    minitest-rails-capybara (3.0.1)
-      capybara (~> 2.7)
-      minitest-capybara (~> 0.8)
-      minitest-metadata (~> 0.6)
-      minitest-rails (~> 3.0)
     mocha (1.6.0)
       metaclass (~> 0.0.1)
     msgpack (1.2.4)
@@ -309,8 +300,7 @@ GEM
     pry-stack_explorer (0.4.9.3)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
-    public_suffix (3.0.2)
-    puma (3.10.0)
+    public_suffix (3.0.3)
     raabro (1.1.6)
     rack (2.0.6)
     rack-attack (5.4.0)
@@ -357,6 +347,7 @@ GEM
     recaptcha (3.4.0)
       json
     redis (4.0.1)
+    regexp_parser (1.3.0)
     request_store (1.4.1)
       rack (>= 1.4)
     responders (2.4.0)
@@ -394,9 +385,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    selenium-webdriver (3.13.1)
+    selenium-webdriver (3.141.0)
       childprocess (~> 0.5)
-      rubyzip (~> 1.2)
+      rubyzip (~> 1.2, >= 1.2.2)
     sendgrid-ruby (5.2.0)
       ruby_http_client (~> 3.2)
       sinatra (>= 1.4.7, < 3)
@@ -478,7 +469,7 @@ GEM
     websocket-extensions (0.1.3)
     will_paginate (3.1.6)
     xml-simple (1.1.5)
-    xpath (3.1.0)
+    xpath (3.2.0)
       nokogiri (~> 1.8)
     yt (0.32.2)
       activesupport
@@ -504,7 +495,7 @@ DEPENDENCIES
   bundler-audit
   byebug
   cancancan
-  capybara-selenium
+  capybara
   chromedriver-helper
   database_cleaner
   devise (~> 4.4.3)
@@ -519,7 +510,6 @@ DEPENDENCIES
   lograge (~> 0.4)
   meta-tags
   mini_magick
-  minitest-rails-capybara (~> 3.0.1)
   mocha
   newrelic_rpm (~> 3.16)
   nokogiri (~> 1.8.4)
@@ -534,7 +524,7 @@ DEPENDENCIES
   pry-byebug
   pry-stack_explorer (~> 0.4.9.3)
   public_suffix (~> 3.0.2)
-  puma (= 3.10)
+  puma!
   rack-attack (~> 5.0)
   rails (~> 5.2.2.rc1)
   rails-controller-testing
@@ -546,6 +536,7 @@ DEPENDENCIES
   rubocop
   rubyzip
   sass-rails (~> 5.0)
+  selenium-webdriver
   sendgrid-ruby
   sentry-raven (~> 2.1)
   sidekiq
@@ -567,4 +558,4 @@ RUBY VERSION
    ruby 2.4.5p335
 
 BUNDLED WITH
-   1.17.2
+   1.17.3

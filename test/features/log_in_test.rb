@@ -1,4 +1,5 @@
 require "test_helper"
+require 'capybara/rails'
 
 class LogInTest < Capybara::Rails::TestCase
   include ActionMailer::TestHelper
